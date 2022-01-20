@@ -88,6 +88,27 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const ls =  [
+    { 
+        id : 1 , 
+        name : 'dashboard',
+        path : '/dashboard',
+        icon : 'icon',
+    },
+    { 
+        id : 2 , 
+        name : 'dashboard',
+        path : '/dashboard',
+        icon : 'icon',
+    },
+    { 
+        id : 3 , 
+        name : 'dashboard',
+        path : '/dashboard',
+        icon : 'icon',
+    }
+]
+  
 const Layout = ({children}) =>{
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -122,7 +143,7 @@ const Layout = ({children}) =>{
                 {/* <Typography variant="h6" noWrap component="div">
                   Mini variant drawer
                 </Typography> */}
-                <Header />
+                <Header  />
               </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -132,7 +153,7 @@ const Layout = ({children}) =>{
                 </IconButton>
               </DrawerHeader>
               <Divider />
-              <List>
+              {/* <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                   <ListItem button key={text}>
                     <ListItemIcon>
@@ -141,9 +162,22 @@ const Layout = ({children}) =>{
                     <ListItemText primary={text} />
                   </ListItem>
                 ))}
+              </List> */}
+              
+              <List>
+                {ls.map((res, index) => (
+                  <ListItem button key={res.id}>
+                    <ListItemIcon>
+                        {/* {res.name} */}
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={res.name} />
+                  </ListItem>
+                ))}
               </List>
               <Divider />
-              <List>
+
+              {/* <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                   <ListItem button key={text}>
                     <ListItemIcon>
@@ -152,7 +186,7 @@ const Layout = ({children}) =>{
                     <ListItemText primary={text} />
                   </ListItem>
                 ))}
-              </List>
+              </List> */}
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 
