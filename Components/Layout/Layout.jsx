@@ -17,8 +17,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import Blogs from '../../pages/blogs';
 import Header from './Header';
+// import PropTypes from 'prop-types';
 
 
 const drawerWidth = 240;
@@ -109,6 +109,32 @@ const ls =  [
     }
 ]
   
+
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+  });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+// HideOnScroll.propTypes = {
+//   children: PropTypes.element.isRequired,
+//   /**
+//    * Injected by the documentation to work in an iframe.
+//    * You won't need it on your project.
+//    */
+//   window: PropTypes.func,
+// };
+
 const Layout = ({children}) =>{
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -126,7 +152,9 @@ const Layout = ({children}) =>{
         <>
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            {/* <HideOnScroll {...props} /> */}
+
+            <AppBar position="fixed" open={open} style={{ background: 'black'}}>
               <Toolbar>
                 <IconButton
                   color="inherit"
@@ -143,7 +171,13 @@ const Layout = ({children}) =>{
                 {/* <Typography variant="h6" noWrap component="div">
                   Mini variant drawer
                 </Typography> */}
-                <Header  />
+                
+                {/* Header Component Start */}
+                
+                  <Header  />
+                
+                {/* Header Component end */}
+
               </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -190,7 +224,9 @@ const Layout = ({children}) =>{
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 
-                {children}
+                <main style={{marginTop:50}}>
+                  {children}
+                </main>
 
 
             </Box>
