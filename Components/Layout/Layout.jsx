@@ -6,7 +6,6 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,13 +14,54 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Header from './Header';
-// import PropTypes from 'prop-types';
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
+import ListIcon from '@mui/icons-material/List';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const drawerWidth = 240;
+
+
+function ListTitle(list){
+const router = useRouter();
+console.log(router.pathname);
+  switch(list) {
+    case 1:
+      return (   router.pathname =="/dashboard" ?   <DashboardIcon sx={{ color: "black"}} /> : <DashboardIcon />  );
+      break;
+    case 2:
+
+      return (   router.pathname =="/articles" ?   <YoutubeSearchedForIcon sx={{ color: "black"}} /> : <YoutubeSearchedForIcon />  );
+        break;  
+    case 3:
+      return (   router.pathname =="/blogs" ?   <ListIcon sx={{ color: "black"}} /> : <ListIcon />  );
+      break;
+
+    default:
+      return 'foo';
+  }
+}
+
+const ls =  [
+  { 
+      id : 1 , 
+      name : 'dashboard',
+      path : '/dashboard',
+  },
+  { 
+      id : 2 , 
+      name : 'article',
+      path : '/articles/',
+  },
+  { 
+      id : 3 , 
+      name : 'List Article',
+      path : '/blogs',
+      
+  }
+]
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -88,26 +128,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const ls =  [
-    { 
-        id : 1 , 
-        name : 'dashboard',
-        path : '/dashboard',
-        icon : 'icon',
-    },
-    { 
-        id : 2 , 
-        name : 'dashboard',
-        path : '/dashboard',
-        icon : 'icon',
-    },
-    { 
-        id : 3 , 
-        name : 'dashboard',
-        path : '/dashboard',
-        icon : 'icon',
-    }
-]
+
   
 
 function HideOnScroll(props) {
@@ -187,30 +208,31 @@ const Layout = ({children}) =>{
                 </IconButton>
               </DrawerHeader>
               <Divider />
-              {/* <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
-              </List> */}
-              
               <List>
                 {ls.map((res, index) => (
                   <ListItem button key={res.id}>
-                    <ListItemIcon>
-                        {/* {res.name} */}
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={res.name} />
-                  </ListItem>
+                        <Link href={res.path}>
+                          <a>
+                            <ListItemIcon>
+                              {ListTitle(res.id)}
+                          </ListItemIcon>
+                        </a>
+                        </Link>
+
+
+                       
+                        <Link href={res.path}>
+                          <a>
+                            <ListItemText primary={res.name} /> 
+                          </a>
+                        </Link>
+                       
+                       
+            </ListItem>   
                 ))}
               </List>
               <Divider />
-
+              
               {/* <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                   <ListItem button key={text}>
@@ -239,3 +261,5 @@ const Layout = ({children}) =>{
 
 
 export default Layout;
+
+
